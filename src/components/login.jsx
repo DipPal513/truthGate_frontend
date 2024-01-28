@@ -20,6 +20,7 @@ import {
 } from "@/redux/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 export default function LoginAccount() {
   //
@@ -31,7 +32,7 @@ export default function LoginAccount() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     dispatch(loginRequest());
-    const res = await axios.post("/api/v1/login", data, {
+    const res = await AxiosInstance.post("/api/v1/login", data, {
       withCredentials: true,
     });
     if (res.data.success) {

@@ -29,6 +29,7 @@ import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import CreatePost from "./post/CreatePost";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 export default function Header() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -36,7 +37,7 @@ export default function Header() {
   const dispatch = useDispatch();
  
   const handleLogout = async () => {
-    await axios.post("/api/v1/logout");
+    await AxiosInstance.post("/api/v1/logout");
     dispatch(logoutUser(null));
     toast.success("successfully logged out!");
     navigate("/login");

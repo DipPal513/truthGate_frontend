@@ -11,7 +11,8 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = async () => {
-    const res = await AxiosInstance.get("/api/v1/me");
+    const res = await AxiosInstance
+    .get("/api/v1/me");
 
     if (res.data.user) {
       dispatch(loadUser(res.data.user));

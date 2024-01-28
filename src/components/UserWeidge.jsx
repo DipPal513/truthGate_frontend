@@ -6,6 +6,7 @@ import {  FaPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 export default function UserWeidge({ username, isMe, userId }) {
   const Navigate = useNavigate()
@@ -16,7 +17,7 @@ export default function UserWeidge({ username, isMe, userId }) {
    
 const handleFollow = async (userId) =>{
   try {
-    const {data} = await axios.get(`/api/v1/follow/${userId}`)
+    const {data} = await AxiosInstance.get(`/api/v1/follow/${userId}`)
     setFollow(data.follow)
     data.follow&&toast.success("user followed")
     !data.follow&&toast.success("user unfollowed")

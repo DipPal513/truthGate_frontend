@@ -5,15 +5,20 @@ import Settings from "@/components/Settings";
 import LoginAccount from "@/components/login";
 import UserProfile from "@/components/user/UserProfile";
 import Home from "@/pages/Home";
+import { useSelector } from "react-redux";
 import { createBrowserRouter } from "react-router-dom";
+const PrivateRoute = ({ element, children }) => {
+  const { isAuthenticated } = useSelector((state) => state.user);
 
+  return isAuthenticated ? element : <Navigate to="/login" />;
+};
 const routes = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <PrivateRoute element={<Home />} />,
       },
       {
         path: "/login",

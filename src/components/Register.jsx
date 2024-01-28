@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import AxiosInstance from "@/lib/AxiosInstance";
 import { registerFailure, registerRequest, registerSuccess } from "@/redux/features/userSlice";
 import axios from "axios";
 import { useRef, useState } from "react";
@@ -27,7 +28,7 @@ export default function Register() {
       e.preventDefault();
       dispatch(registerRequest());
       // Use axios.post directly inside the function, not inside useEffect
-      const res = await axios.post("/api/v1/register", data, {
+      const res = await AxiosInstance.post("/api/v1/register", data, {
         withCredentials: true,
       });
       if (res.data.success) {

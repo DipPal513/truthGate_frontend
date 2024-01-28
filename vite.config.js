@@ -16,12 +16,10 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      "/api": { target: "https://truthgate-backend.vercel.app" },
-      https: true,
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/app/, 'https://truthgate-backend.vercel.app'),
-     
-    }
-  },
+      "/api": "https://truthgate-backend.vercel.app"
+    },
+
+  
+},
 
 })

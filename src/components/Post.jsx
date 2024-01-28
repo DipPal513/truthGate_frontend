@@ -89,7 +89,7 @@ export default function Post({ post,loadPost }) {
   
   const handleFollow = async (id) => {
    
-    const isMe = id == user._id;
+    const isMe = id == user?._id;
 
     if (!isMe) {
       const { data } = await axios.get(`/api/v1/follow/${id}`);
@@ -144,7 +144,7 @@ export default function Post({ post,loadPost }) {
                     <UserWeidge
                       username={likedUser.username}
                       follow={follow}
-                      isMe={likedUser._id == user._id}
+                      isMe={likedUser?._id == user?._id}
                       userId={likedUser._id}
                       handleFollow={handleFollow}
                       key={index}

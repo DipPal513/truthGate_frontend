@@ -10,6 +10,7 @@ import {
   postSuccess,
 } from "@/redux/features/postSlice";
 import { useTranslation } from "react-i18next";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 //
 const Post = React.lazy(() => import("@/components/Post"));
@@ -24,7 +25,7 @@ export default function Home() {
   // load all posts of following
   const loadPost = async () => {
     dispatch(postRequest());
-    const { data } = await axios.get("/api/v1/posts");
+    const { data } = await AxiosInstance.get("/api/v1/posts");
     if (data.success) {
       dispatch(postSuccess(data.posts));
     } else {

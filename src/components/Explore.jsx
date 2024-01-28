@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 const UserWeidge = React.lazy(() => import("@/components/UserWeidge"));
 
@@ -31,7 +32,7 @@ export default function Explore() {
   const loadAllUsers = async () => {
     dispatch(getAllUserRequest());
     try {
-      const { data } = await axios.get("/api/v1/users");
+      const { data } = await AxiosInstance.get("/api/v1/users");
       console.log(data);
       if (data.success) {
         dispatch(getAllUserSuccess(data.users));

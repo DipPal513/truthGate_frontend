@@ -22,6 +22,7 @@ import {
 import { Textarea } from "./ui/textarea";
 import { MdFileDownloadDone } from "react-icons/md";
 import UserWeidge from "./UserWeidge";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 
 export default function Post({ post,loadPost }) {
@@ -43,7 +44,7 @@ export default function Post({ post,loadPost }) {
     dispatch(likeRequest());
     
     try {
-      const { data } = await axios.get(`/api/v1/post/${_id}`);
+      const { data } = await AxiosInstance.get(`/api/v1/post/${_id}`);
       if (data.liked) {
         dispatch(likeSuccess(data.liked));
         
@@ -70,7 +71,7 @@ export default function Post({ post,loadPost }) {
     comment
       ? (async () => {
         try {
-          const { data } = await axios.put(
+          const { data } = await AxiosInstance.put(
             `/api/v1/post/comment/${_id}`,
             { comment },
             { withCredentials: true }
@@ -92,7 +93,7 @@ export default function Post({ post,loadPost }) {
     const isMe = id == user?._id;
 
     if (!isMe) {
-      const { data } = await axios.get(`/api/v1/follow/${id}`);
+      const { data } = await AxiosInstance.get(`/api/v1/follow/${id}`);
       if (data.follow) {
         setFollow(true);
         toast.success("user followed");

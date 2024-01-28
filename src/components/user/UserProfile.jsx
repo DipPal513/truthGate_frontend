@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import AxiosInstance from "@/lib/AxiosInstance";
 export default function UserProfile() {
   const [user, setUser] = useState();
   const { id } = useParams();
   console.log(id);
   const loadUser = async () => {
-    const { data } = await axios.get(`/api/v1/user/${id}`);
+    const { data } = await AxiosInstance.get(`/api/v1/user/${id}`);
     setUser(data.user);
   };
   useEffect(() => {

@@ -5,12 +5,13 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { loadUser } from "./redux/features/userSlice";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import AxiosInstance from "./lib/AxiosInstance";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = async () => {
-    const res = await axios.get("/api/v1/me");
+    const res = await AxiosInstance.get("/api/v1/me");
 
     if (res.data.user) {
       dispatch(loadUser(res.data.user));

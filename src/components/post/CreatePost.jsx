@@ -31,7 +31,7 @@ export default function CreatePost() {
 
   const handlePost = async () => {
     dispatch(postUploadRequest());
-    const { data } = await axios.post(
+    const { data } = await AxiosInstance.post(
       "/api/v1/post/upload",
       { caption: post, image: image },
       { withCredentials: true, headers: { "Content-Type": "application/json" } }
@@ -40,12 +40,11 @@ export default function CreatePost() {
       dispatch(postUploadSuccess(data.post));
       setPost("");
       toast.success("Successfully Posted!");
-      console.log("post success",data)
+      console.log("post success", data);
       fileRef.current.value = "";
     } else {
       postUploadFailure(data.message);
-      console.log(data)
-      
+      console.log(data);
     }
     console.log(loading);
   };
@@ -79,6 +78,10 @@ export default function CreatePost() {
         </label>
       </div>
 
+      <button type="button" class="bg-indigo-500 ...">
+        <svg class="animate-spin h-5 w-5 mr-3 " viewBox="0 0 24 24"></svg>
+        Processing...
+      </button>
       <Button
         onClick={handlePost}
         className={`"mt-4" ${

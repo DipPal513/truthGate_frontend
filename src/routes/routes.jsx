@@ -6,8 +6,9 @@ import LoginAccount from "@/components/login";
 import UserProfile from "@/components/user/UserProfile";
 import Home from "@/pages/Home";
 import { useSelector } from "react-redux";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useNavigate } from "react-router-dom";
 const PrivateRoute = ({ element, children }) => {
+  const Navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.user);
 
   return isAuthenticated ? element : <Navigate to="/login" />;

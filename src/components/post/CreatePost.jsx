@@ -40,10 +40,12 @@ export default function CreatePost() {
       dispatch(postUploadSuccess(data.post));
       setPost("");
       toast.success("Successfully Posted!");
-
+      console.log("post success",data)
       fileRef.current.value = "";
     } else {
-      postUploadFailure();
+      postUploadFailure(data.message);
+      console.log(data)
+      
     }
     console.log(loading);
   };

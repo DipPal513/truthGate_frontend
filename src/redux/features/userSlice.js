@@ -48,10 +48,12 @@ export const userSlice = createSlice({
         registerSuccess: (state, action) => {
             state.user = action.payload;
             state.loading = false;
+            state.isAuthenticated=true;
         },
         registerFailure: (state, action) => {
             state.error = action.payload;
             state.loading = false;
+            state.isAuthenticated=false;
         }
     }
 });

@@ -7,7 +7,7 @@ const store = configureStore({
     initialState,
     reducer: {
         user: userReducer,
-        posts: postReducer
+        post: postReducer
     }
 });
 

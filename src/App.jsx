@@ -17,15 +17,13 @@ function App() {
     } else {
       navigate("/login");
     }
-    
   };
   useEffect(() => {
     user();
-    
   }, []);
 
   const { isAuthenticated } = useSelector((state) => state.user);
-
+  
   return (
     <>
       {isAuthenticated && <Header />}

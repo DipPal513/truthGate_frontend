@@ -36,28 +36,14 @@ export default function Home() {
     loadPost();
   }, [dispatch]);
 
-  // post upload
-  const handlePostUpload = async (e) => {
-    e.preventDefault();
-  };
-
-  const { posts } = useSelector((state) => state.posts);
+  
  
+  const { posts } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.user);
+ console.log(user)
 
   return (
-    <div className="px-3 py-2">
-      <div className="add_post">
-        <form className="grid w-full gap-1.5">
-          <Textarea
-            placeholder="Type your message here."
-            id="message"
-            required
-          />
-          <Button variant={"outline"} type="submit" onClick={handlePostUpload}>
-            post : {t("greeting")}
-          </Button>
-        </form>
-      </div>
+    <div className="px-3 py-2 md:max-w-screen-sm mx-auto">
       <div className="feed mt-5">
         {posts?.map((post, index) => (
           <Suspense
@@ -82,7 +68,7 @@ export default function Home() {
               </div>
             }
           >
-            <Post post={post} key={index} />
+            <Post post={post} key={index} loadPost={loadPost}/>
           </Suspense>
         ))}
       </div>

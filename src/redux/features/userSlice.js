@@ -29,6 +29,7 @@ export const userSlice = createSlice({
         logoutUser: (state, action) => {
             state.user = action.payload;
             state.isAuthenticated = false;
+            state.posts = null
         },
         getAllUserRequest: (state, action) => {
             state.loading = true;

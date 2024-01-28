@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { registerFailure, registerRequest, registerSuccess } from "@/redux/features/userSlice";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Register() {
   const [data, setData] = useState({ username: "", email: "", password: "" ,matchPassword:""});
   // for form submit
+  const fileRef = useRef();
   const dispatch = useDispatch();
   const naviagate = useNavigate()
   const handleFormSubmit = async (e) => {
@@ -58,6 +59,27 @@ export default function Register() {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
+            <div className="mb-4">
+        <label className="block py-4">
+          <span className="font-semibold block mb-3">Choose profile photo</span>
+          <Input
+            type="file"
+            className="cursor pointer block w-full text-sm text-gray-500
+            file:me-4 file:py-1 file:px-4
+            file:rounded-lg file:border-0
+            file:text-sm file:font-semibold
+            file:bg-blue-600 file:text-white
+            hover:file:bg-blue-700
+            file:disabled:opacity-50 file:disabled:pointer-events-none
+            dark:file:bg-blue-500
+            dark:hover:file:bg-blue-400
+"
+            ref={fileRef}
+            required
+            onChange={(e) => imageHandler(e)}
+          />
+        </label>
+      </div>
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
@@ -108,9 +130,7 @@ export default function Register() {
                 }
               />
             </div>
-            <span className=" text-blue-600 hover:underline text-sm">
-              Forget password ?
-            </span>
+          
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button className="w-full" onClick={handleFormSubmit}>
@@ -118,25 +138,21 @@ export default function Register() {
             </Button>
           </CardFooter>
           <div className="relative mb-2">
-            <div className="absolute inset-0 flex items-center">
+            <div className="absolute flex items-center">
               <span className="w-full border-t" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
+         
           </div>
-          <div className="grid grid-cols-2 gap-6 m-2">
+          {/* <div className="grid grid-cols-2 gap-6 m-2">
             <Button variant="outline">
               {/* <Icons.gitHub className="mr-2 h-4 w-4" /> */}
-              Github
+              {/* Github
             </Button>
             <Button variant="outline">
-              {/* <Icons.twitter className="mr-2 h-4 w-4" /> */}
+             
               Twitter
             </Button>
-          </div>
+          </div> */}
           <p className="mt-2 text-xs text-center text-gray-700 mb-2">
             {" "}
             Already have an account?{" "}

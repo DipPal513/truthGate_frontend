@@ -21,17 +21,27 @@ import { MdHome, MdOutlineExplore } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { CiLogout, CiSettings } from "react-icons/ci";
 import LangToggler from "./LangToggler";
+import { FaPlus } from "react-icons/fa";
+import { Popover, PopoverTrigger } from "./ui/popover";
+import { PopoverContent } from "@radix-ui/react-popover";
+import { Input } from "postcss";
+import { Textarea } from "./ui/textarea";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import CreatePost from "./post/CreatePost";
 
 export default function Header() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+ 
   const handleLogout = async () => {
     await axios.post("/api/v1/logout");
     dispatch(logoutUser(null));
     toast.success("successfully logged out!");
     navigate("/login");
   };
+ 
   return (
     <Menubar className="justify-between h-16">
       <MenubarMenu>
@@ -45,7 +55,15 @@ export default function Header() {
         </Link>
       </MenubarMenu>
       <MenubarMenu>
-        <LangToggler />
+        {/* <LangToggler /> */}
+        <Popover>
+          <PopoverTrigger>
+            <FaPlus />
+          </PopoverTrigger>
+          <PopoverContent className="bg-white border-gray-800 shadow-lg px-4 py-5 rounded w-[90vw] mr-12">
+         <CreatePost />
+          </PopoverContent>
+        </Popover>
       </MenubarMenu>
       <MenubarMenu>
         <Link to={"/explore"}>

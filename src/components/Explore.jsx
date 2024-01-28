@@ -9,6 +9,7 @@ import {
 } from "@/redux/features/userSlice";
 import axios from "axios";
 import { Button } from "./ui/button";
+import toast from "react-hot-toast";
 
 const UserWeidge = React.lazy(() => import("@/components/UserWeidge"));
 
@@ -33,7 +34,7 @@ export default function Explore() {
       const { data } = await axios.get("/api/v1/users");
       console.log(data);
       if (data.success) {
-        dispatch(getAllUserSuccess(data));
+        dispatch(getAllUserSuccess(data.users));
         setUsers(data.users);
         console.log(data.users);
       } else {
@@ -46,14 +47,14 @@ export default function Explore() {
 
   useEffect(() => {
     loadAllUsers();
-  }, []);
+  }, [dispatch]);
 
   const { user } = useSelector((state) => state.user);
 
   const filteredUsers = users.filter((user) =>
     name === "" ? user : user?.username?.toLowerCase().includes(name)
   );
-
+ 
   return (
     <div className="w-screen mx-auto">
       <div className="box flex items-center mx-3">
@@ -78,6 +79,7 @@ export default function Explore() {
                 isMe={single_user._id === user?._id}
                 user={single_user}
                 userId={single_user?._id}
+               
               />
             </Suspense>
           ))

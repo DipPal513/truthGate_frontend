@@ -19,7 +19,7 @@ export default defineConfig({
       "/api": { target: "https://truthgate-backend.vercel.app" },
       https: true,
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/app/, ''),
+      rewrite: (path) => path.replace(/^\/app/, 'https://truthgate-backend.vercel.app'),
      
     }
   },

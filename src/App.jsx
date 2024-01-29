@@ -25,10 +25,10 @@ function App() {
   }, []);
 
   const { isAuthenticated } = useSelector((state) => state.user);
-  console.log("app rendered")
+  
   return (
     <>
-    <Header />
+    {isAuthenticated && <Header />}
       <Toaster position="top center" />
       <main>
         <Outlet />

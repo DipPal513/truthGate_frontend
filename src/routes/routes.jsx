@@ -6,11 +6,11 @@ import LoginAccount from "@/pages/login";
 import UserProfile from "@/components/user/UserProfile";
 import Home from "@/pages/Home";
 import { useSelector } from "react-redux";
-import { createBrowserRouter, useNavigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 const PrivateRoute= ({element}) =>{
   const {isAuthenticated} = useSelector(state => state.user);
-  const Navigate = useNavigate();
- return isAuthenticated ? element : Navigate("/login");
+  
+ return isAuthenticated ? element : <Navigate to={"/login"} replace/>;
 }
 export const routes = createBrowserRouter([
   {

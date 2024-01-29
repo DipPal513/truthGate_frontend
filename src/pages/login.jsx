@@ -105,15 +105,11 @@ export default function LoginAccount() {
 </svg>
 Loading...</> : "Login"}
 </button>
-            {error && (
-              <p className="w-full h-10 text-md px-3 py-2 rounded  my-2 bg-red-400">
-                {error}
-              </p>
-            )}
+           
             <p className="mt-2 text-xs text-center text-gray-700">
               {" "}
               Don't have an account?{" "}
-              <Link to="/register" className=" text-blue-600 hover:underline">Sign up</Link>
+              <Link to="/register" className=" text-blue-600 hover:underline bg-blue-400">Sign up</Link>
             </p>
           </CardFooter>
         </Card>

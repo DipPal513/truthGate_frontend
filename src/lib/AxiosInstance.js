@@ -2,7 +2,7 @@
 import axios from 'axios';
 const AxiosInstance = axios.create({
   
-  baseURL: 'http://localhost:4000', // replace this with your API base URL
+  baseURL: 'https://truthgate-backend.vercel.app', // replace this with your API base URL
   // You can also add other configuration options here
   
   

@@ -1,16 +1,14 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Input } from "./ui/input";
-import { Skeleton } from "./ui/skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllUserFailure,
-  getAllUserRequest,
-  getAllUserSuccess,
-} from "@/redux/features/userSlice";
-import axios from "axios";
-import { Button } from "./ui/button";
-import toast from "react-hot-toast";
 import AxiosInstance from "@/lib/AxiosInstance";
+import {
+    getAllUserFailure,
+    getAllUserRequest,
+    getAllUserSuccess,
+} from "@/redux/features/userSlice";
+import React, { Suspense, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Skeleton } from "../components/ui/skeleton";
 
 const UserWeidge = React.lazy(() => import("@/components/UserWeidge"));
 

@@ -60,7 +60,7 @@ export default function Register() {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-            <div className="mb-4">
+            {/* <div className="mb-4">
         <label className="block py-4">
           <span className="font-semibold block mb-3">Choose profile photo</span>
           <Input
@@ -80,7 +80,7 @@ export default function Register() {
             onChange={(e) => imageHandler(e)}
           />
         </label>
-      </div>
+      </div> */}
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"

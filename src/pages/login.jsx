@@ -109,7 +109,7 @@ Loading...</> : "Login"}
             <p className="mt-2 text-xs text-center text-gray-700">
               {" "}
               Don't have an account?{" "}
-              <Link to="/register" className=" text-blue-600 hover:underline bg-blue-400">Sign up</Link>
+              <Link to="/register" className=" text-white hover:underline bg-green-500 px-5 py-2 ">Register</Link>
             </p>
           </CardFooter>
         </Card>

@@ -10,6 +10,7 @@ import {
   postUploadRequest,
   postUploadSuccess,
 } from "@/redux/features/postSlice";
+import AxiosInstance from "@/lib/AxiosInstance";
 
 export default function CreatePost() {
   const [post, setPost] = useState();

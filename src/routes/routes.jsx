@@ -29,13 +29,14 @@ export const routes = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: "/explore",
+        element: <Explore />,
+      },
+      {
         path: "/settings",
         element: <Settings />,
       },
-      {
-        path: "/explore",
-        element: <Home/>,
-      },
+     
       {
         path: "/user/:id",
         element: <UserProfile />,

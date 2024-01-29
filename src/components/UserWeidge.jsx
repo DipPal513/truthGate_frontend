@@ -8,16 +8,17 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import AxiosInstance from "@/lib/AxiosInstance";
 
-export default function UserWeidge({ username, isMe, userId }) {
+export default function UserWeidge({ username, isMe, userId,user }) {
   const Navigate = useNavigate()
-  const {allUsers,user} = useSelector(state => state.user)
+  
   
     const navigate = useNavigate();
      const [follow,setFollow] = useState();
    
-const handleFollow = async (userId) =>{
+const handleFollow = async (e,userId) =>{
+  e.stopPropagation()
   try {
-    const {data} = await AxiosInstance.get(`/api/v1/follow/${userId}`)
+    const {data} = await AxiosInstance.get(`/api/v1/follow/${userId}`,{withCredentials:true})
     setFollow(data.follow)
     data.follow&&toast.success("user followed")
     !data.follow&&toast.success("user unfollowed")
@@ -26,7 +27,7 @@ const handleFollow = async (userId) =>{
   }
 }
 useEffect(() =>{
-  
+  const souldFollow = 
   setFollow(userId == user._id);
 },[])
 
@@ -39,7 +40,7 @@ useEffect(() =>{
       </div>
       {!isMe && (
         <Button
-          onClick={() =>handleFollow(userId)}
+          onClick={(e) =>handleFollow(e,userId)}
           className={`"bg-blue-400 rounded text-white " ${follow ? "bg-blue-300 hover:bg-blue-400" : ""}`}
         >
           {follow ? "followed" : <FaPlus/>}

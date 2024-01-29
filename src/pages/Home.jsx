@@ -25,7 +25,7 @@ export default function Home() {
   // load all posts of following
   const loadPost = async () => {
     dispatch(postRequest());
-    const { data } = await AxiosInstance.get("/api/v1/posts");
+    const { data } = await AxiosInstance.get("/api/v1/posts",{withCredentials:true});
     if (data.success) {
       dispatch(postSuccess(data.posts));
     } else {

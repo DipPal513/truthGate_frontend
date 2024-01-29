@@ -44,7 +44,7 @@ export default function Post({ post,loadPost }) {
     dispatch(likeRequest());
     
     try {
-      const { data } = await AxiosInstance.get(`/api/v1/post/${_id}`);
+      const { data } = await AxiosInstance.get(`/api/v1/post/${_id}`,{withCredentials:true});
       if (data.liked) {
         dispatch(likeSuccess(data.liked));
         
@@ -93,7 +93,7 @@ export default function Post({ post,loadPost }) {
     const isMe = id == user?._id;
 
     if (!isMe) {
-      const { data } = await AxiosInstance.get(`/api/v1/follow/${id}`);
+      const { data } = await AxiosInstance.get(`/api/v1/follow/${id}`,{withCredentials:true});
       if (data.follow) {
         setFollow(true);
         toast.success("user followed");

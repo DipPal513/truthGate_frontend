@@ -12,7 +12,7 @@ function App() {
   const navigate = useNavigate();
   const user = async () => {
     const res = await AxiosInstance
-    .get("/api/v1/me");
+  .get("/api/v1/me",{withCredentials:true});
 
     if (res.data.user) {
       dispatch(loadUser(res.data.user));
@@ -21,11 +21,11 @@ function App() {
     }
   };
   useEffect(() => {
-    user();
+    loadUser();
   }, []);
 
   const { isAuthenticated } = useSelector((state) => state.user);
-  
+  console.log(isAuthenticated)
   return (
     <>
     {isAuthenticated && <Header />}

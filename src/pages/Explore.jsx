@@ -30,7 +30,7 @@ export default function Explore() {
   const loadAllUsers = async () => {
     dispatch(getAllUserRequest());
     try {
-      const { data } = await AxiosInstance.get("/api/v1/users");
+      const { data } = await AxiosInstance.get("/api/v1/users",{withCredentials:true});
       console.log(data);
       if (data.success) {
         dispatch(getAllUserSuccess(data.users));

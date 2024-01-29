@@ -8,7 +8,7 @@ export default function UserProfile() {
   const { id } = useParams();
   console.log(id);
   const loadUser = async () => {
-    const { data } = await AxiosInstance.get(`/api/v1/user/${id}`);
+    const { data } = await AxiosInstance.get(`/api/v1/user/${id}`,{withCredentials:true});
     setUser(data.user);
   };
   useEffect(() => {

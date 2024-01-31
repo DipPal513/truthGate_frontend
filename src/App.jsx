@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import AxiosInstance from "./lib/AxiosInstance";
+import LoginAccount from "./pages/login";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ function App() {
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
       <main>
-        <Outlet />
+       {isAuthenticated ? <Outlet /> : <LoginAccount />}
       </main>
     </>
   );

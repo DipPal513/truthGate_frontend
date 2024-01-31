@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import AxiosInstance from "./lib/AxiosInstance";
 import LoginAccount from "./pages/login";
+import Register from "./pages/Register";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function App() {
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
       <main>
-       {isAuthenticated ? <Outlet /> : <LoginAccount />}
+       {isAuthenticated ? <Outlet /> : <Register />}
       </main>
     </>
   );

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AxiosInstance from "@/lib/AxiosInstance";
 
 export default function UserWeidge({ username, isMe, userId, user }) {
@@ -13,10 +13,11 @@ export default function UserWeidge({ username, isMe, userId, user }) {
 
   const navigate = useNavigate();
   const [follow, setFollow] = useState();
-
+const dispatch = useDispatch();
   const handleFollow = async (e) => {
     e.stopPropagation();
     try {
+      
       const { data } = await AxiosInstance.get(`/api/v1/follow/${userId}`, {
         withCredentials: true,
       });

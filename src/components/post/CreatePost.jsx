@@ -50,7 +50,7 @@ export default function CreatePost() {
     console.log(loading);
   };
   return (
-    <div className="content py-4">
+    <form onSubmit={handlePost} className="content py-4">
       <Textarea
         placeholder="add post"
         required
@@ -79,21 +79,15 @@ export default function CreatePost() {
         </label>
       </div>
 
-      <button type="button" class="bg-indigo-500 ...">
-        <svg class="animate-spin h-5 w-5 mr-3 " viewBox="0 0 24 24"></svg>
-        Processing...
-      </button>
       <Button
-        onClick={handlePost}
+        type="submit"
         className={`"mt-4" ${
-          loading
-            ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed select-none"
-            : ""
+          loading ? "bg-gray-400 hover:bg-gray-400 cursor-wait select-none" : ""
         }`}
         disable={!loading}
       >
         {loading ? "Uploading..." : "Upload"}
       </Button>
-    </div>
+    </form>
   );
 }

@@ -69,7 +69,7 @@ export default function Register() {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} className="flex flex-col gap-y-4">
               <div className="grid gap-2">
                 {/* <div className="mb-4">
         <label className="block py-4">

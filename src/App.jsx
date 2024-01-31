@@ -55,7 +55,7 @@ function App() {
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
       <main>
-       {isAuthenticated ? <Outlet /> : <Register />}
+      <Outlet />      
       </main>
     </>
   );

@@ -52,15 +52,15 @@ export const userSlice = createSlice({
             state.loading = false;
         },
         followRequest: (state, action) => {
-            state.loading = true;
+            state.followLoading = true;
         },
         followSuccess: (state, action) => {
             state.follow = action.payload;
-            state.loading = false;
+            state.followLoading = false;
         },
         followFailure: (state, action) => {
             state.error = action.payload;
-            state.loading = false;
+            state.followLoading = false;
         },
         registerRequest: (state, action) => {
             state.loading = true;
@@ -75,6 +75,8 @@ export const userSlice = createSlice({
             state.loading = false;
             state.isAuthenticated = false;
         }
+        ,
+        
     }
 });
 

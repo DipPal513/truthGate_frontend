@@ -36,15 +36,15 @@ const postSlice = createSlice({
                 state.error = action.payload;
         },
         likeRequest: (state) => {
-            state.loading = true;
+            state.likeLoading = true;
         },
         likeSuccess: (state, action) => {
-            state.loading = false;
+            state.likeLoading = false;
             state.like = action.payload;
             
         },
         likeFailure: (state, action) => {
-            state.loading = false,
+            state.likeLoading = false,
             state.error = action.payload;
         },
         clearError: (state) => {
@@ -52,9 +52,20 @@ const postSlice = createSlice({
         },
         clearMessage: (state) => {
             state.message = null
-        }
+        },
+        commentRequest: (state, action) => {
+            state.commentLoading = true;
+        },
+        commentSuccess: (state, action) => {
+            state.user = action.payload;
+            state.commentLoading = false;
+        },
+        commentFailure: (state, action) => {
+            state.error = action.payload;
+            state.commentLoading = false;
+        },
     }
 });
 
-export const { postRequest, postSuccess, postFailure,postUploadRequest, postUploadSuccess, postUploadFailure, likeFailure, likeRequest, likeSuccess } = postSlice.actions;
+export const { postRequest, postSuccess, postFailure,postUploadRequest, postUploadSuccess, postUploadFailure, likeFailure, likeRequest, likeSuccess,commentRequest,commentSuccess,commentFailure } = postSlice.actions;
 export default postSlice.reducer;

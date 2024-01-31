@@ -37,9 +37,10 @@ export default function Header() {
   const dispatch = useDispatch();
  
   const handleLogout = async () => {
-    await AxiosInstance.post("/api/v1/logout");
+    const res = await AxiosInstance.post("/api/v1/logout",{withCredentials:true});
     dispatch(logoutUser(null));
-    toast.success("successfully logged out!");
+    console.log(res)
+    toast.success(res.data.message);
     navigate("/login");
   };
  

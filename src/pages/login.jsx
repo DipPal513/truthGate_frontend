@@ -26,29 +26,33 @@ export default function LoginAccount() {
   //
   const navigate = useNavigate();
   const [data, setData] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
   // for form submit
   const { loading } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
   const handleFormSubmit = async (e) => {
+    // preventing loading
     e.preventDefault();
+    // 
     dispatch(loginRequest());
+    // 
     const res = await AxiosInstance.post("/api/v1/login", data, {
       withCredentials: true,
     });
+    // 
     if (res.data.success) {
       dispatch(loginSuccess(res.data.user));
       navigate("/");
       toast.success("Successfully logged in!");
-    } else {
+    }
+     else {
       dispatch(loginFailure(res.data.message));
       toast.error(res.data.message);
     }
 
-    console.log(res.data);
   };
   // const { error } = useSelector((state) => state);
-  const error = "something went wrong";
+  
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
       <div className="w-full m-auto bg-white lg:max-w-lg">
@@ -136,7 +140,7 @@ export default function LoginAccount() {
               Don't have an account?{" "}
               <Link
                 to="/register"
-                className=" text-white hover:underline bg-green-500 px-5 py-2 "
+                className="  underline px-5 py-2 text-lg "
               >
                 Register
               </Link>

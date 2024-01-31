@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 const PrivateRoute= ({element}) =>{
   const {isAuthenticated} = useSelector(state => state.user);
-  
+  console.log(isAuthenticated,"is auth from secure auth")
  return isAuthenticated ? element : <Navigate to={"/login"} replace/>;
 }
 export const routes = createBrowserRouter([
@@ -18,7 +18,7 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <PrivateRoute element={<Home />}/>,
+        element: <Home />,
       },
       {
         path: "/login",

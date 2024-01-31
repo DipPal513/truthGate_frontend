@@ -22,10 +22,19 @@ export const userSlice = createSlice({
             state.error = action.payload;
             state.isAuthenticated = false;
         },
+        loadUserRequest: (state) => {
+            state.loading = true;
+        },
         loadUser: (state, action) => {
             state.user = action.payload;
+            state.loading = false;
             state.isAuthenticated = true;
         },
+        loadUserFailure: (state, action) => {
+            state.loading = false;
+            state.isAuthenticated = false;
+        },
+
         logoutUser: (state, action) => {
             state.user = action.payload;
             state.isAuthenticated = false;
@@ -42,22 +51,33 @@ export const userSlice = createSlice({
             state.error = action.payload;
             state.loading = false;
         },
+        followRequest: (state, action) => {
+            state.loading = true;
+        },
+        followSuccess: (state, action) => {
+            state.follow = action.payload;
+            state.loading = false;
+        },
+        followFailure: (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        },
         registerRequest: (state, action) => {
             state.loading = true;
         },
         registerSuccess: (state, action) => {
             state.user = action.payload;
             state.loading = false;
-            state.isAuthenticated=true;
+            state.isAuthenticated = true;
         },
         registerFailure: (state, action) => {
             state.error = action.payload;
             state.loading = false;
-            state.isAuthenticated=false;
+            state.isAuthenticated = false;
         }
     }
 });
 
-export const { loginRequest, loginFailure, loginSuccess, loadUser, logoutUser, getAllUserRequest, getAllUserSuccess, getAllUserFailure,registerFailure,registerRequest,registerSuccess } = userSlice.actions;
+export const { loginRequest, loginFailure, loginSuccess, loadUser, logoutUser, getAllUserRequest, getAllUserSuccess, getAllUserFailure, registerFailure, registerRequest, registerSuccess, followSuccess, followRequest, followFailure, loadUserFailure, loadUserRequest } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -34,6 +34,7 @@ export default function LoginAccount() {
     // preventing loading
     e.preventDefault();
     // 
+    try{
     dispatch(loginRequest());
     // 
     const res = await AxiosInstance.post("/api/v1/login", data, {
@@ -49,7 +50,10 @@ export default function LoginAccount() {
       dispatch(loginFailure(res.data.message));
       toast.error(res.data.message);
     }
-
+  }catch(error){
+    dispatch(loginFailure(error.message));
+    toast.error("login failed");
+  }
   };
   // const { error } = useSelector((state) => state);
   

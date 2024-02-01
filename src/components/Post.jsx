@@ -26,7 +26,7 @@ import { Textarea } from "./ui/textarea";
 import UserWeidge from "./UserWeidge";
 import AxiosInstance from "@/lib/AxiosInstance";
 
-export default function Post({ post, loadPost }) {
+export default function Post({ post, loadPost=() =>{} }) {
   // all states
   const [comment, setComment] = useState();
   const [like, setLike] = useState();

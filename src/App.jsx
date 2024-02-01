@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import AxiosInstance from "./lib/AxiosInstance";
 import LoginAccount from "./pages/login";
 import Register from "./pages/Register";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,9 +55,10 @@ function App() {
     <>
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
-      <main>
+      <main className="min-h-[80vh]">
       <Outlet />      
       </main>
+      <Footer />
     </>
   );
 }

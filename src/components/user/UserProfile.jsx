@@ -1,33 +1,38 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useParams } from "react-router-dom";
-import AxiosInstance from "@/lib/AxiosInstance";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import { GoDownload } from "react-icons/go";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import AxiosInstance from "@/lib/AxiosInstance";
 import { bioRequest, bioSuccess } from "@/redux/features/userSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { Skeleton } from "../ui/skeleton";
-import toast from "react-hot-toast";
 const Post = React.lazy(() => import("@/components/Post"));
 
 export default function UserProfile() {
-  const [currUser, setUser] = useState();
+  const [currUser, setUser] = useState(null);
   const [userBio, setBio] = useState("");
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { bioLoading, user } = useSelector((state) => state.user);
+  const { bioLoading, user, bio } = useSelector((state) => state.user);
+
   const loadUser = async () => {
-    const { data } = await AxiosInstance.get(`/api/v1/user/${id}`, {
-      withCredentials: true,
-    });
-    setUser(data.user);
-    console.log(data);
+    try {
+      const { data } = await AxiosInstance.get(`/api/v1/user/${id}`, {
+        withCredentials: true,
+      });
+      setUser(data.user);
+    } catch (error) {
+      console.error("Error loading user:", error);
+    }
   };
 
-  const isMe = user?._id == id;
-  console.log(isMe);
+  const isMe = user?._id === id;
+  const isFollowed = currUser?.followers.includes(user?._id);
+
   const bioHandler = async (e) => {
     e.preventDefault();
     dispatch(bioRequest());
@@ -36,12 +41,15 @@ export default function UserProfile() {
       const { data } = await AxiosInstance.put("/api/v1/user/bio", {
         bio: userBio,
       });
+
       if (data.success) {
-        toast.success("bio added successfully..");
+        toast.success("Bio added successfully.");
         setBio("");
       }
+
       dispatch(bioSuccess(data.userBio));
     } catch (error) {
+      console.error("Error updating bio:", error);
       dispatch(error.message);
     }
   };
@@ -50,27 +58,20 @@ export default function UserProfile() {
     loadUser();
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   currUser.bio && setBio(user.bio);
-  // }, []);
   useEffect(() => {
     if (currUser) {
       setBio(currUser.bio || "");
     }
   }, [currUser]);
+
   const handleDownloadAvatar = () => {
-    // Ensure that currUser and currUser.avatar.url are defined
     if (currUser && currUser.avatar && currUser.avatar.url) {
-      // Create an invisible anchor tag
       const anchor = document.createElement("a");
       anchor.href = currUser.avatar.url;
-      anchor.download = currUser.avatar.url; // Set the desired filename
+      anchor.download = currUser.avatar.url;
       anchor.click();
     }
   };
-  const { bio } = useSelector((state) => state.user);
-  console.log("bio from ", bio);
-  const isFollowed = currUser?.followers.includes(user?._id)
   return (
     <div className="">
       <div className="mt-4 px-4  max-w-screen-sm mx-auto">
@@ -108,7 +109,7 @@ export default function UserProfile() {
           <AvatarFallback>PROFILE IMAGE</AvatarFallback>
         </Avatar>
         <div className="flex items-center justify-between">
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
             {currUser?.username}
           </h1>
           {!isMe && <button className={` bg-blue-600 text-white px-3 py-1 rounded ${isFollowed && " bg-blue-300 px-3"} `}>
@@ -117,7 +118,7 @@ export default function UserProfile() {
         </div>
         <div className="bio_section">
           <p className="mt-3 text-[15px] text-gray-500 font-semibold">
-            {bio ? bio : "no bio avail..."}
+            {bio ? bio : "..."}
           </p>
           {isMe && (
             <Popover>

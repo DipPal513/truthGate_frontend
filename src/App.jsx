@@ -44,7 +44,7 @@ function App() {
   }, []);
 
   const { isAuthenticated, loading } = useSelector((state) => state.user);
-  console.log("user auth", isAuthenticated);
+ 
 
   // if (loading) {
   //   // Render a loading state while user data is being fetched

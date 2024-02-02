@@ -86,7 +86,7 @@ export default function Header() {
             <MenubarItem inset className="hover:bg-gray-900">
               <Link to={"/profile"} className="flex items-center gap-x-3">
                 <CgProfile className="text-2xl" />
-                <p>view profile</p>
+                <Link to="">view profile</Link>
               </Link>
             </MenubarItem>
             <MenubarItem inset className="hover:bg-gray-900">

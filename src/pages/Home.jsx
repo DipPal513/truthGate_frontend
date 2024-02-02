@@ -16,16 +16,17 @@ import AxiosInstance from "@/lib/AxiosInstance";
 const Post = React.lazy(() => import("@/components/Post"));
 
 export default function Home() {
-
   // for language
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   // load all posts of following
   const loadPost = async () => {
     dispatch(postRequest());
-    const { data } = await AxiosInstance.get("/api/v1/posts",{withCredentials:true});
+    const { data } = await AxiosInstance.get("/api/v1/posts", {
+      withCredentials: true,
+    });
     if (data.success) {
       dispatch(postSuccess(data.posts));
     } else {
@@ -37,11 +38,8 @@ export default function Home() {
     loadPost();
   }, [dispatch]);
 
-  
- 
   const { posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
- 
 
   return (
     <div className="px-3 py-2 md:max-w-screen-sm mx-auto">
@@ -69,7 +67,7 @@ export default function Home() {
               </div>
             }
           >
-            <Post post={post} key={index} loadPost={loadPost}/>
+            <Post post={post} key={index} loadPost={loadPost} />
           </Suspense>
         ))}
       </div>

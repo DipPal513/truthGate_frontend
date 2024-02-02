@@ -26,7 +26,8 @@ import { Textarea } from "./ui/textarea";
 import UserWeidge from "./UserWeidge";
 import AxiosInstance from "@/lib/AxiosInstance";
 
-export default function Post({ post, loadPost=() =>{} }) {
+export default function Post({username="", post, loadPost = () => {} }) {
+  
   // all states
   const [comment, setComment] = useState();
   const [like, setLike] = useState();
@@ -35,7 +36,7 @@ export default function Post({ post, loadPost=() =>{} }) {
   const { image, _id, caption, owner, likes, comments, createdAt } = post;
   const [likeCount, setLikeCount] = useState(likes.length);
   //
-
+  console.log(post);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -125,7 +126,7 @@ export default function Post({ post, loadPost=() =>{} }) {
       <CardHeader>
         <div className="flex items-center gap-x-2">
           <div className="img w-10 h-10 bg-blue-500 rounded-full"></div>
-          <div className="owner_name font-semibold">{owner.username}</div>
+          <div className="owner_name font-semibold">{!owner.username ?username : owner?.username}</div>
         </div>
       </CardHeader>
       <CardContent>

@@ -27,15 +27,35 @@ export default function Register() {
     email: "",
     password: "",
     matchPassword: "",
+    avatar: "",
   });
   // for form submit
   const fileRef = useRef();
   const dispatch = useDispatch();
   const naviagate = useNavigate();
+  //
+  const imageHandler = (e) => {
+    console.log("imagehandler triggered");
+    const file = e.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            setData({ ...data, [e.target.name]: reader.result });
+            console.log("this is the file into the onload", file);
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    console.log("final data", data.avatar);
+};
+
   const handleFormSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log("handlesubmit triggered")
+
       dispatch(registerRequest());
       // Use axios.post directly inside the function, not inside useEffect
       const res = await AxiosInstance.post("/api/v1/register", data, {
@@ -51,11 +71,13 @@ export default function Register() {
         toast.error(res.data.message);
       }
     } catch (error) {
-      // Handle errors (for example, console.error it)
       console.error("Error submitting form:", error);
     }
   };
+  // image handleling
+ 
   const { loading } = useSelector((state) => state.user);
+  
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
       <div className="w-full m-auto bg-white lg:max-w-lg">
@@ -71,27 +93,30 @@ export default function Register() {
           <CardContent className="grid gap-4">
             <form onSubmit={handleFormSubmit} className="flex flex-col gap-y-4">
               <div className="grid gap-2">
-                {/* <div className="mb-4">
-        <label className="block py-4">
-          <span className="font-semibold block mb-3">Choose profile photo</span>
-          <Input
-            type="file"
-            className="cursor pointer block w-full text-sm text-gray-500
-            file:me-4 file:py-1 file:px-4
-            file:rounded-lg file:border-0
-            file:text-sm file:font-semibold
-            file:bg-blue-600 file:text-white
-            hover:file:bg-blue-700
-            file:disabled:opacity-50 file:disabled:pointer-events-none
-            dark:file:bg-blue-500
-            dark:hover:file:bg-blue-400
+                <div className="mb-4">
+                  <label className="block py-4">
+                    <span className="font-semibold block mb-3">
+                      Choose profile photo
+                    </span>
+                    <Input
+                      type="file"
+                      className="cursor pointer block w-full text-sm text-gray-500
+              file:me-4 file:py-1 file:px-4
+              file:rounded-lg file:border-0
+              file:text-sm file:font-semibold
+              file:bg-blue-600 file:text-white
+              hover:file:bg-blue-700
+              file:disabled:opacity-50 file:disabled:pointer-events-none
+              dark:file:bg-blue-500
+              dark:hover:file:bg-blue-400
 "
-            ref={fileRef}
-            required
-            onChange={(e) => imageHandler(e)}
-          />
-        </label>
-      </div> */}
+                      name="avatar"
+                      ref={fileRef}
+                      required
+                      onChange={(e) => imageHandler(e)}
+                    />
+                  </label>
+                </div>
                 <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
@@ -143,7 +168,6 @@ export default function Register() {
                 />
               </div>
               <Button
-               
                 type="submit"
                 className={`" mt-4 " ${loading ? " cursor-wait" : ""}`}
               >

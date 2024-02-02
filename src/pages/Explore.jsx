@@ -53,6 +53,7 @@ export default function Explore() {
   const filteredUsers = users.filter((user) =>
     name === "" ? user : user?.username?.toLowerCase().includes(name)
   );
+ 
  if(loading){
   return (
     <div role="status" className="w-full text-center flex items-center h-[60vh] justify-center">
@@ -88,7 +89,7 @@ export default function Explore() {
                 isMe={single_user._id == user?._id}
                 user={user}
                 userId={single_user?._id}
-               
+                avatar={single_user?.avatar}
               />
             </Suspense>
           ))

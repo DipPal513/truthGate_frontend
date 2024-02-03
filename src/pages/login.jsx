@@ -42,6 +42,7 @@ export default function LoginAccount() {
     });
     // 
     if (res.data.success) {
+      console.log(res.data)
       dispatch(loginSuccess(res.data.user));
       navigate("/");
       toast.success("Successfully logged in!");
@@ -58,8 +59,8 @@ export default function LoginAccount() {
   // const { error } = useSelector((state) => state);
   
   return (
-    <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
-      <div className="w-full m-auto bg-white lg:max-w-lg">
+    <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden ">
+      <div className="w-full m-auto  lg:max-w-lg ">
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">Sign in</CardTitle>
@@ -106,7 +107,7 @@ export default function LoginAccount() {
               </div>
               <Button
                 type="submit"
-                className={`" mt-4 block w-full" ${
+                className={`" mt-4 block w-full dark:bg-black dark:text-white dark:border " ${
                   loading ? " cursor-wait" : ""
                 }`}
                 style={{ width: "100% !important" }}

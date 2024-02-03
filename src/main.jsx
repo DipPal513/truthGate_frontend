@@ -9,19 +9,15 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./main.css";
 // for i18next
 // import { I18nextProvider } from "react-i18next";
-import "@/lib/i18n.js"
-import {routes} from "./routes/routes.jsx";
-
-
+import "@/lib/i18n.js";
+import { routes } from "./routes/routes.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider>
-        <RouterProvider router={routes}>
-            <App />
-        </RouterProvider>
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ThemeProvider>
+      <RouterProvider router={routes}>
+        <App />
+      </RouterProvider>
+    </ThemeProvider>
+  </Provider>
 );

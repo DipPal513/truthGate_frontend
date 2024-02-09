@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className="px-3 py-2 md:max-w-screen-sm mx-auto">
       <div className="feed mt-5">
-        {posts?.map((post, index) => (
+        {posts?.length < 1 ? <p className="text-gray-800 text-xl font-semibold">Follow users to show their posts..</p> :posts?.map((post, index) => (
           <Suspense
             key={index}
             fallback={

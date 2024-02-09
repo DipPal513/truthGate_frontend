@@ -17,9 +17,8 @@ export default function UserWeidge({ username, isMe, userId, avatar }) {
   const Navigate = useNavigate();
   const navigate = useNavigate();
   const [follow, setFollow] = useState(false); // Initialize follow state
-
+  const [loading,setLoaidng] = useState(followLoading);
   const dispatch = useDispatch();
-
   const handleFollow = async (e) => {
     e.stopPropagation();
     try {
@@ -40,9 +39,7 @@ export default function UserWeidge({ username, isMe, userId, avatar }) {
   };
 
   useEffect(() => {
-    // Check if the current user is already following this user
     const isFollowing = user.following.includes(userId);
-    // console.log(user)
     setFollow(isFollowing);
   }, []);
 
@@ -64,7 +61,7 @@ export default function UserWeidge({ username, isMe, userId, avatar }) {
             follow ? "bg-blue-300 hover:bg-blue-400" : ""
           }`}
         >
-          {followLoading ? (
+          {loading ? (
             <div role="status">
               <svg
                 aria-hidden="true"

@@ -33,31 +33,28 @@ export default function LoginAccount() {
   const handleFormSubmit = async (e) => {
     // preventing loading
     e.preventDefault();
-    // 
-    try{
-    dispatch(loginRequest());
-    // 
-    const res = await AxiosInstance.post("/api/v1/login", data, {
-      withCredentials: true,
-    });
-    // 
-    if (res.data.success) {
-      console.log(res.data)
-      dispatch(loginSuccess(res.data.user));
-      navigate("/");
-      toast.success("Successfully logged in!");
+    //
+    try {
+      dispatch(loginRequest());
+      //
+      const res = await AxiosInstance.post("/api/v1/login", data,{withCredentials:true});
+      //
+      if (res.data.success) {
+        console.log(res.data);
+        dispatch(loginSuccess(res.data.user));
+        navigate("/");
+        toast.success("Successfully logged in!");
+      } else {
+        dispatch(loginFailure(res.data.message));
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+      toast.error("login failed");
     }
-     else {
-      dispatch(loginFailure(res.data.message));
-      toast.error(res.data.message);
-    }
-  }catch(error){
-    dispatch(loginFailure(error.message));
-    toast.error("login failed");
-  }
   };
   // const { error } = useSelector((state) => state);
-  
+
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen overflow-hidden ">
       <div className="w-full m-auto  lg:max-w-lg ">
@@ -143,10 +140,7 @@ export default function LoginAccount() {
             <p className="mt-2 text-xs text-center text-gray-700">
               {" "}
               Don't have an account?{" "}
-              <Link
-                to="/register"
-                className="  underline px-5 py-2 text-lg "
-              >
+              <Link to="/register" className="  underline px-5 py-2 text-lg ">
                 Register
               </Link>
             </p>

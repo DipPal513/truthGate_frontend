@@ -41,11 +41,10 @@ const postSlice = createSlice({
         likeSuccess: (state, action) => {
             state.likeLoading = false;
             state.like = action.payload;
-            
         },
         likeFailure: (state, action) => {
             state.likeLoading = false,
-            state.error = action.payload;
+                state.error = action.payload;
         },
         clearError: (state) => {
             state.error = null
@@ -67,5 +66,17 @@ const postSlice = createSlice({
     }
 });
 
-export const { postRequest, postSuccess, postFailure,postUploadRequest, postUploadSuccess, postUploadFailure, likeFailure, likeRequest, likeSuccess,commentRequest,commentSuccess,commentFailure } = postSlice.actions;
+export const {
+    postRequest,
+    postSuccess,
+    postFailure,
+    postUploadRequest, 
+    postUploadSuccess,
+    postUploadFailure,
+    likeFailure,
+    likeRequest,
+    likeSuccess,
+    commentRequest,
+    commentSuccess,
+    commentFailure } = postSlice.actions;
 export default postSlice.reducer;

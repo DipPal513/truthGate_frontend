@@ -8,16 +8,16 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import AxiosInstance from "@/lib/AxiosInstance";
-import { bioRequest, bioSuccess } from "@/redux/features/userSlice";
 import { Skeleton } from "../ui/skeleton";
 const Post = React.lazy(() => import("@/components/Post"));
 
 export default function UserProfile() {
   const [currUser, setUser] = useState(null);
-  const [userBio, setBio] = useState("");
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const { bioLoading, user, bio } = useSelector((state) => state.user);
+  const [data, setData] = useState("");
+  const [userBio, setBio] = useState(currUser?.bio);
+  const dispatch = useDispatch("");
+  const { id } = useParams("");
+  const { bioLoading, user } = useSelector((state) => state.user);
 
   const loadUser = async () => {
     try {
@@ -25,6 +25,7 @@ export default function UserProfile() {
         withCredentials: true,
       });
       setUser(data.user);
+      setBio(data.user.bio)
     } catch (error) {
       console.error("Error loading user:", error);
     }
@@ -35,34 +36,29 @@ export default function UserProfile() {
 
   const bioHandler = async (e) => {
     e.preventDefault();
-    dispatch(bioRequest());
 
     try {
-      const { data } = await AxiosInstance.put("/api/v1/user/bio", {
-        bio: userBio,
-      });
+      const res = await AxiosInstance.put(
+        "/api/v1/user/bio",
+        {
+          bio: data,
+        },
+        { withCredentials: true }
+      );
 
-      if (data.success) {
+      if (res.data.success) {
         toast.success("Bio added successfully.");
-        setBio("");
+        setBio(res.data?.userBio);
+        setData("")
       }
-
-      dispatch(bioSuccess(data.userBio));
     } catch (error) {
       console.error("Error updating bio:", error);
-      dispatch(error.message);
     }
   };
 
   useEffect(() => {
     loadUser();
   }, [dispatch]);
-
-  useEffect(() => {
-    if (currUser) {
-      setBio(currUser.bio || "");
-    }
-  }, [currUser]);
 
   const handleDownloadAvatar = () => {
     if (currUser && currUser.avatar && currUser.avatar.url) {
@@ -72,6 +68,7 @@ export default function UserProfile() {
       anchor.click();
     }
   };
+
   return (
     <div className="">
       <div className="mt-4 px-4  max-w-screen-sm mx-auto">
@@ -112,13 +109,19 @@ export default function UserProfile() {
           <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
             {currUser?.username}
           </h1>
-          {!isMe && <button className={` bg-blue-600 text-white px-3 py-1 rounded ${isFollowed && " bg-blue-300 px-3"} `}>
-            { isFollowed ? "following" : "follow"}
-          </button>}
+          {!isMe && (
+            <button
+              className={` bg-blue-600 text-white px-3 py-1 rounded ${
+                isFollowed && " bg-blue-300 px-3"
+              } `}
+            >
+              {isFollowed ? "following" : "follow"}
+            </button>
+          )}
         </div>
         <div className="bio_section">
           <p className="mt-3 text-[15px] text-gray-500 font-semibold">
-            {bio ? bio : "..."}
+            {userBio}
           </p>
           {isMe && (
             <Popover>
@@ -130,8 +133,8 @@ export default function UserProfile() {
                   <Textarea
                     required
                     placeholder="bio must be within 80 words.."
-                    value={userBio}
-                    onChange={(e) => setBio(e.target.value)}
+                    value={data}
+                    onChange={(e) => setData(e.target.value)}
                   />
                   <Button type="submit">
                     {bioLoading ? (

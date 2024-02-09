@@ -62,17 +62,6 @@ export const userSlice = createSlice({
             state.error = action.payload;
             state.followLoading = false;
         },
-        bioRequest: (state, action) => {
-            state.bioLoading = true;
-        },
-        bioSuccess: (state, action) => {
-            state.bio = action.payload;
-            state.bioLoading = false;
-        },
-        bioFailure: (state, action) => {
-            state.error = action.payload;
-            state.bioLoading = false;
-        },
         registerRequest: (state, action) => {
             state.loading = true;
         },
@@ -91,6 +80,6 @@ export const userSlice = createSlice({
     }
 });
 
-export const { loginRequest, loginFailure, loginSuccess, loadUser, logoutUser, getAllUserRequest, getAllUserSuccess, getAllUserFailure, registerFailure, registerRequest, registerSuccess, followSuccess, followRequest, followFailure, loadUserFailure, loadUserRequest,bioRequest,bioSuccess,bioFailure } = userSlice.actions;
+export const { loginRequest, loginFailure, loginSuccess, loadUser, logoutUser, getAllUserRequest, getAllUserSuccess, getAllUserFailure, registerFailure, registerRequest, registerSuccess, followSuccess, followRequest, followFailure, loadUserFailure, loadUserRequest} = userSlice.actions;
 
 export default userSlice.reducer;

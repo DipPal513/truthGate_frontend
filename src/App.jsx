@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import Footer from "./components/Footer";
 
 function App() {
+  console.count("app component rendered ")
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

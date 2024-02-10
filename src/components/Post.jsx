@@ -102,13 +102,13 @@ const navigate = useNavigate()
            <AvatarFallback><img src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png" alt="" /></AvatarFallback>
          </Avatar>
           <div className="owner_name font-semibold">
-            {!owner.username ? username : owner?.username}
+            {!owner?.username ? username : owner?.username}
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <img
-          src={image.url}
+          src={image?.url}
           alt="post image"
           className="rounded mb-3 max-h-[300px] mx-auto"
           loading="lazy"
@@ -131,7 +131,7 @@ const navigate = useNavigate()
         />
         <div className="flex items-center gap-x-2">
           <Popover>
-            <PopoverTrigger>{comments.length}</PopoverTrigger>
+            <PopoverTrigger>{comments?.length}</PopoverTrigger>
             <PopoverContent>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-x-2">
@@ -184,10 +184,10 @@ const navigate = useNavigate()
                   </Button>
                 </form>
 
-                {comments.length == 0 ? (
+                {comments?.length == 0 ? (
                   <p className="py-5">No comments yet</p>
                 ) : (
-                  comments.map((comment, index) => (
+                  comments?.map((comment, index) => (
                     <div
                       className="comments flex flex-col gap-y-2 mb-3 "
                       key={index}
@@ -201,7 +201,7 @@ const navigate = useNavigate()
 
                         <div className="comment p-1">
                           <p className="text-gray-900 text-md mt-2 px-2 dark:text-gray-100">
-                            {comment.comment}
+                            {comment?.comment}
                           </p>
                         </div>
                       </div>

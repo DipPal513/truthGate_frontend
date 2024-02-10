@@ -11,6 +11,7 @@ import {
 } from "@/redux/features/postSlice";
 import { useTranslation } from "react-i18next";
 import AxiosInstance from "@/lib/AxiosInstance";
+import { Helmet } from "react-helmet";
 
 //
 const Post = React.lazy(() => import("@/components/Post"));
@@ -43,6 +44,10 @@ export default function Home() {
 
   return (
     <div className="px-3 py-2 md:max-w-screen-sm mx-auto">
+      <Helmet>
+        <title>truthgate news feed </title>
+        <meta name="description" content="this is the news feed page of truthgate it shows posts of user whom following"/>
+      </Helmet>
       <div className="feed mt-5">
         {posts?.length < 1 ? <p className="text-gray-800 text-xl font-semibold dark:text-gray-300">Follow users to show their posts..</p> :posts?.map((post, index) => (
           <Suspense

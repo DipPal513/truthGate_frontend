@@ -26,12 +26,12 @@ function UserWeidge({ username, isMe, userId, avatar }) {
       const { data } = await AxiosInstance.get(`/api/v1/follow/${userId}`, {
         withCredentials: true,
       });
-      setFollow(data.follow);
-      if (data.success) {
+      setFollow(data?.follow);
+      if (data?.success) {
         dispatch(followSuccess(data.follow));
       }
-      data.follow && toast.success("user followed");
-      !data.follow && toast.success("user unfollowed");
+      data?.follow && toast.success("user followed");
+      !data?.follow && toast.success("user unfollowed");
     } catch (error) {
       toast.error("failed to follow this user");
       dispatch(followFailure(error));
@@ -39,7 +39,7 @@ function UserWeidge({ username, isMe, userId, avatar }) {
   };
 
   useEffect(() => {
-    const isFollowing = user.following.includes(userId);
+    const isFollowing = user?.following.includes(userId);
     setFollow(isFollowing);
   }, []);
 

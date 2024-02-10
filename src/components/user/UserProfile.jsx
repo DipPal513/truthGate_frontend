@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import AxiosInstance from "@/lib/AxiosInstance";
 import { Skeleton } from "../ui/skeleton";
+import { Helmet } from "react-helmet";
 const Post = React.lazy(() => import("@/components/Post"));
 
 export default function UserProfile() {
@@ -25,7 +26,7 @@ export default function UserProfile() {
         withCredentials: true,
       });
       setUser(data.user);
-      setBio(data.user.bio)
+      setBio(data.user.bio);
     } catch (error) {
       console.error("Error loading user:", error);
     }
@@ -49,7 +50,7 @@ export default function UserProfile() {
       if (res.data.success) {
         toast.success("Bio added successfully.");
         setBio(res.data?.userBio);
-        setData("")
+        setData("");
       }
     } catch (error) {
       console.error("Error updating bio:", error);
@@ -71,6 +72,11 @@ export default function UserProfile() {
 
   return (
     <div className="">
+      <Helmet>
+        <title>{`user profile page of ${currUser?.name}`}</title>
+        <meta name="description" content="user profile of truthgate social media" />
+        <meta name="keywords" content="explore, allusers, truthgate" />
+      </Helmet>
       <div className="mt-4 px-4  max-w-screen-sm mx-auto">
         <Avatar className=" mb-4 w-[130px] h-[130px] p-1 border-blue-100 border-4">
           <Popover>
@@ -190,8 +196,8 @@ export default function UserProfile() {
 
         <h2 className="font-bold mt-4 text-2xl capitalize">Timeline</h2>
         <hr className="mt-3" />
-        <div className="all_users_post">
-          {currUser?.posts.length <= 0 ? (
+        <div className="all_users_post flex flex-col-reverse">
+          {currUser?.posts?.length <= 0 ? (
             <h1 className="mt-5 text-gray-500 font-bold text-lg">
               No Post Yet
             </h1>

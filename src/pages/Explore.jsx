@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Skeleton } from "../components/ui/skeleton";
+import { Helmet } from "react-helmet";
 
 const UserWeidge = React.lazy(() => import("@/components/UserWeidge"));
 
@@ -72,6 +73,11 @@ export default function Explore() {
   const {user} = useSelector(state => state.user);
   return (
     <div className="max-w-screen-sm mx-auto">
+      <Helmet>
+      <title>truthgate explore page</title>
+    <meta name="description" content="find all users in the explore page"/>
+    <meta name="keywords" content="explore, allusers, truthgate" />
+      </Helmet>
       <form className="box flex items-center mx-3" onSubmit={handleSearch}>
         <Input
           placeholder="Name..."
@@ -93,14 +99,14 @@ export default function Explore() {
             </svg>
             <span class="sr-only">Loading...</span>
           </div>
-        ) : filteredUsers.length === 0 ? (
+        ) : filteredUsers?.length === 0 ? (
           <p className="px-5 font-bold text-gray-500">No users found for {`"${name}"`}</p>
         ) : (
           filteredUsers.map((single_user) => (
             <Suspense key={single_user._id} fallBack={userLoader}>
               <UserWeidge
                 username={single_user.username}
-                isMe={single_user._id == user?._id}
+                isMe={single_user?._id == user?._id}
                 user={user}
                 userId={single_user?._id}
                 avatar={single_user?.avatar}

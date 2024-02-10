@@ -41,7 +41,7 @@ function App() {
   };
 
   useEffect(() => {
-    user();
+   user();
   }, []);
 
   const { isAuthenticated, loading } = useSelector((state) => state.user);

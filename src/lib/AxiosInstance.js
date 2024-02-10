@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const AxiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://truthgate-backend.vercel.app",
   withCredentials: true
 });
 

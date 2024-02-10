@@ -88,7 +88,7 @@ console.log(user)
        </MenubarTrigger>
        <MenubarContent>
          <MenubarItem inset className="hover:bg-gray-200 dark:hover:text-gray-900">
-           <Link to={`/user/${user._id}`} className="flex items-center gap-x-3">
+           <Link to={`/user/${user?._id}`} className="flex items-center gap-x-3">
              <CgProfile className="text-2xl" />
              <p>view profile</p>
            </Link>

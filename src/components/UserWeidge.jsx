@@ -43,7 +43,7 @@ function UserWeidge({ username, isMe, userId, avatar }) {
     setFollow(isFollowing);
   }, []);
 
-  return (
+  if(!isMe) return (
     <div
       className="flex items-center gap-x-2 justify-between px-4 mb-3 transition-all duration-200 hover:bg-gray-200 rounded py-2 cursor-pointer dark:hover:bg-gray-700"
       onClick={() => Navigate(`/user/${userId}`)}
@@ -54,7 +54,7 @@ function UserWeidge({ username, isMe, userId, avatar }) {
         </div>
         <p className="owner_name font-semibold">{username}</p>
       </div>
-      {!isMe && (
+     
         <Button
           onClick={(e) => handleFollow(e)}
           className={`"bg-blue-400 rounded dark:text-black text-white " ${
@@ -87,7 +87,7 @@ function UserWeidge({ username, isMe, userId, avatar }) {
             <FaPlus />
           )}
         </Button>
-      )}
+    
     </div>
   );
 }

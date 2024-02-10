@@ -72,6 +72,7 @@ export default function Register() {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      dispatch(registerFailure(error.message));
     }
   };
   // image handleling

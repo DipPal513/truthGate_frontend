@@ -24,8 +24,9 @@ import { PopoverContent } from "@radix-ui/react-popover";
 
 import CreatePost from "./post/CreatePost";
 import AxiosInstance from "@/lib/AxiosInstance";
+import { memo } from "react";
 
-export default function Header() {
+function Header() {
   console.count("header component rendered");
 
   // 
@@ -37,11 +38,20 @@ export default function Header() {
     const res = await AxiosInstance.post("/api/v1/logout", {
       withCredentials: true,
     });
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+
     dispatch(logoutUser(null));
     toast.success(res.data.message);
     navigate("/login");
   };
-
+console.log(user)
   return (
    <div className="max-w-screen-sm mx-auto"> <Menubar className="justify-between h-16">
     
@@ -56,7 +66,7 @@ export default function Header() {
        <PopoverTrigger>
          <FaPlus className="text-2xl"/>
        </PopoverTrigger>
-       <PopoverContent className="bg-white border-gray-800 shadow-lg px-4 py-5 rounded w-[90vw] mr-12">
+       <PopoverContent className="bg-white border-gray-800 shadow-lg px-4 py-5 rounded w-full mr-12 dark:bg-gray-900 z-[111111] ">
          <CreatePost />
        </PopoverContent>
      </Popover>
@@ -72,18 +82,18 @@ export default function Header() {
        <MenubarTrigger>
          {" "}
          <Avatar>
-           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-           <AvatarFallback>CN</AvatarFallback>
+           <AvatarImage src={user?.avatar?.url} className="object-contain"/>
+           <AvatarFallback><img src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png" alt="" /></AvatarFallback>
          </Avatar>
        </MenubarTrigger>
        <MenubarContent>
-         <MenubarItem inset className="hover:bg-gray-900">
-           <Link to={"/profile"} className="flex items-center gap-x-3">
+         <MenubarItem inset className="hover:bg-gray-200 dark:hover:text-gray-900">
+           <Link to={`/user/${user._id}`} className="flex items-center gap-x-3">
              <CgProfile className="text-2xl" />
-             <Link to="">view profile</Link>
+             <p>view profile</p>
            </Link>
          </MenubarItem>
-         <MenubarItem inset className="hover:bg-gray-900">
+         <MenubarItem inset className="hover:bg-gray-200 dark:hover:text-gray-900">
            <Link to={"/settings"} className="flex items-center gap-x-3">
              <CiSettings className="text-2xl" />
              <p>Settings</p>
@@ -92,7 +102,7 @@ export default function Header() {
          <MenubarItem
            inset
            onClick={handleLogout}
-           className="flex gap-x-3 hover:bg-gray-900"
+           className="flex gap-x-3 hover:bg-gray-200 dark:hover:text-gray-900"
          >
            <CiLogout className="text-2xl" />
            <p>Logout</p>
@@ -107,3 +117,4 @@ export default function Header() {
  </Menubar></div>
   );
 }
+export default memo(Header)

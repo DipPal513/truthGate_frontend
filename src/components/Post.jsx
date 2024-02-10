@@ -26,6 +26,9 @@ import { Textarea } from "./ui/textarea";
 import UserWeidge from "./UserWeidge";
 import AxiosInstance from "@/lib/AxiosInstance";
 import Like from "./post/Like";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 const Post = ({ username = "", post, loadPost = () => {} }) => {
   console.count("post component rendered ");
@@ -88,12 +91,16 @@ const Post = ({ username = "", post, loadPost = () => {} }) => {
   useEffect(() => {
     loadPost();
   }, [dispatch]);
-
+  
+const navigate = useNavigate()
   return (
     <Card className="mt-2 rounded">
-      <CardHeader>
+      <CardHeader onClick={() => navigate(`/user/${owner?._id}`)}>
         <div className="flex items-center gap-x-2">
-          <div className="img w-10 h-10 bg-blue-500 rounded-full"></div>
+        <Avatar>
+           <AvatarImage src={owner?.avatar?.url} className="object-contain"/>
+           <AvatarFallback><img src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png" alt="" /></AvatarFallback>
+         </Avatar>
           <div className="owner_name font-semibold">
             {!owner.username ? username : owner?.username}
           </div>
@@ -185,15 +192,15 @@ const Post = ({ username = "", post, loadPost = () => {} }) => {
                       className="comments flex flex-col gap-y-2 mb-3 "
                       key={index}
                     >
-                      <div className="single_comment bg-gray-100 p-1">
+                      <div className="single_comment bg-gray-100 p-1 dark:bg-gray-900">
                         <div className="user flex items-center gap-x-3 mt-5  px-3 flex-wrap">
                           {/* avatar */}
                           <div className="avatar w-8 h-8 rounded-full bg-red-500"></div>
-                          <p className="font-bold">{comment?.user?.username}</p>
+                          <p className="font-bold ">{comment?.user?.username}</p>
                         </div>
 
                         <div className="comment p-1">
-                          <p className="text-gray-900 text-md mt-2 px-2">
+                          <p className="text-gray-900 text-md mt-2 px-2 dark:text-gray-100">
                             {comment.comment}
                           </p>
                         </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
@@ -12,7 +12,8 @@ import {
 } from "@/redux/features/postSlice";
 import AxiosInstance from "@/lib/AxiosInstance";
 
-export default function CreatePost() {
+function CreatePost() {
+  console.count("create post rendering")
   const [post, setPost] = useState();
   const dispatch = useDispatch();
   const [image, setImage] = useState();
@@ -30,7 +31,8 @@ export default function CreatePost() {
     Reader.readAsDataURL(file);
   };
 
-  const handlePost = async () => {
+  const handlePost = async (e) => {
+    e.preventDefault();
     dispatch(postUploadRequest());
     const { data } = await AxiosInstance.post(
       "/api/v1/post/upload",
@@ -45,17 +47,18 @@ export default function CreatePost() {
       fileRef.current.value = "";
     } else {
       postUploadFailure(data.message);
-      console.log(data);
+ 
     }
-    console.log(loading);
+console.log(data)
   };
   return (
-    <form onSubmit={handlePost} className="content py-4">
+    <form onSubmit={handlePost} className="content py-4 max-w-screen-sm mx-auto dark:bg-gray-900 dark:text-white">
       <Textarea
         placeholder="add post"
         required
+        value={post}
         onChange={(e) => setPost(e.target.value)}
-        className="mb-4 rounded px-4 text-gray-600 font-semibold"
+        className="mb-4 rounded px-4 text-gray-600 font-semibold dark:text-white"
       />
       <div className="mb-4">
         <label className="block py-4">
@@ -68,7 +71,7 @@ export default function CreatePost() {
             file:text-sm file:font-semibold
             file:bg-blue-600 file:text-white
             hover:file:bg-blue-700
-            file:disabled:opacity-50 file:disabled:pointer-events-none
+            file:disabled:opacity-50 file:disabled:pointer-events-none dark:border-white
             dark:file:bg-blue-500
             dark:hover:file:bg-blue-400
 "
@@ -81,8 +84,8 @@ export default function CreatePost() {
 
       <Button
         type="submit"
-        className={`"mt-4" ${
-          loading ? "bg-gray-400 hover:bg-gray-400 cursor-wait select-none" : ""
+        className={`"mt-4 dark:bg-gray-700 text-white " ${
+          loading ? "bg-gray-400 hover:bg-gray-400 cursor-wait select-none " : ""
         }`}
         disable={!loading}
       >
@@ -91,3 +94,4 @@ export default function CreatePost() {
     </form>
   );
 }
+export default memo(CreatePost)

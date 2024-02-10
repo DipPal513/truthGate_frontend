@@ -23,6 +23,7 @@ const userLoader = (
 );
 
 export default function Explore() {
+  console.count("expore component rendered")
   const [name, setName] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true); // Added loading state
@@ -50,7 +51,8 @@ export default function Explore() {
     }
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     setLoading(true); // Set loading to true when searching
     try {
       const { data } = await AxiosInstance.get(`/api/v1/users/search?username=${name}`,{withCredentials:true});
@@ -69,8 +71,8 @@ export default function Explore() {
 
   const {user} = useSelector(state => state.user);
   return (
-    <div className="w-screen mx-auto">
-      <div className="box flex items-center mx-3">
+    <div className="max-w-screen-sm mx-auto">
+      <form className="box flex items-center mx-3" onSubmit={handleSearch}>
         <Input
           placeholder="Name..."
           required
@@ -78,10 +80,10 @@ export default function Explore() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <Button className="my-3" variant={"outline"} onClick={handleSearch}>
+        <Button className="my-3" type={"submit"} variant={"outline"} >
           Search
         </Button>
-      </div>
+      </form>
       <div className="all_users">
         {loading ? ( // Render loading indicator if loading is true
           <div role="status" className="w-full text-center flex items-center h-[60vh] justify-center">

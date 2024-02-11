@@ -47,15 +47,14 @@ function CreatePost() {
       fileRef.current.value = "";
     } else {
       postUploadFailure(data.message);
- 
     }
-console.log(data)
+
   };
   return (
     <form onSubmit={handlePost} className="content py-4 max-w-screen-sm mx-auto dark:bg-gray-900 dark:text-white">
       <Textarea
         placeholder="add post"
-        required
+        
         value={post}
         onChange={(e) => setPost(e.target.value)}
         className="mb-4 rounded px-4 text-gray-600 font-semibold dark:text-white"
@@ -76,7 +75,7 @@ console.log(data)
             dark:hover:file:bg-blue-400
 "
             ref={fileRef}
-            required
+           
             onChange={(e) => imageHandler(e)}
           />
         </label>

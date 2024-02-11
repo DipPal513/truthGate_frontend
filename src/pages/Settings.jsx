@@ -33,12 +33,12 @@ export default function Settings() {
   const handleUserDelete = async (e) => {
     e.preventDefault();
     try {
-      if (name === user?.username) {
+      if (name == user?.username) {
         const { data } = await AxiosInstance.delete("/api/v1/delete/me");
         if (data.success) {
           toast.success("profile deleted...");
           navigate("/login");
-        
+          
         }
       }
       if (!data.success) {

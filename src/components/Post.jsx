@@ -22,13 +22,23 @@ import {
   commentSuccess,
   commentFailure,
 } from "@/redux/features/postSlice";
+import { MdDeleteForever } from "react-icons/md";
 import { Textarea } from "./ui/textarea";
-import UserWeidge from "./UserWeidge";
 import AxiosInstance from "@/lib/AxiosInstance";
 import Like from "./post/Like";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const Post = ({ username = "", post, loadPost = () => {} }) => {
   console.count("post component rendered ");
@@ -92,32 +102,77 @@ const Post = ({ username = "", post, loadPost = () => {} }) => {
     loadPost();
   }, [dispatch]);
   
-const navigate = useNavigate()
+ const postDeleteHandler = async () =>{
+  console.log("post delete triggered")
+   try {
+    const {data} = await AxiosInstance.delete(`/api/v1/deletepost/${_id}`);
+    if(data.success){
+      toast.success("Post deleted");
+    }
+    else if(!data.success){
+      toast.error("post deletion failed!")
+    }
+   } catch (error) {
+    console.log(error.message);
+    toast.error("failed to delete post!")
+   }
+ }
+const navigate = useNavigate();
+const shouldDelete = owner == user?._id;
+
   return (
     <Card className="mt-2 rounded">
-      <CardHeader onClick={() => navigate(`/user/${owner?._id}`)}>
-        <div className="flex items-center gap-x-2">
+      <CardHeader>
+       <div className="flex items-center justify-between">
+       <div className="flex items-center gap-x-2">
         <Avatar>
            <AvatarImage src={owner?.avatar?.url} className="object-contain"/>
            <AvatarFallback><img src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png" alt="" /></AvatarFallback>
          </Avatar>
-          <div className="owner_name font-semibold">
-            {!owner?.username ? username : owner?.username}
+          <div className="owner_name font-semibold"  onClick={() => navigate(`/user/${owner?._id}`)}>
+           <p>{!owner?.username ? username : owner?.username}
+            </p> 
+            {createdAt && (
+          <p className="text-gray-500 text-xs font-semibold ">
+            {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+          </p>
+        )}
           </div>
         </div>
+        {shouldDelete && 
+<AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline"><MdDeleteForever/></Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction className="bg-red-500" onClick={postDeleteHandler}>Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+        
+        }
+        
+       </div>
+        
       </CardHeader>
       <CardContent>
-        <img
+
+        {!(image == null) && <img
           src={image?.url}
           alt="post image"
           className="rounded mb-3 max-h-[300px] mx-auto"
           loading="lazy"
-        />
-        {createdAt && (
-          <p className="text-gray-500 text-sm mb-4 font-semibold">
-            {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
-          </p>
-        )}
+        />}
+       
         <p>{caption}</p>
       </CardContent>
       <CardFooter className="flex items-center justify-between">

@@ -36,13 +36,13 @@ export default function Like({
       if (data.liked) {
         dispatch(likeSuccess(data.liked));
         setLike(true);
-        setLikeCount((prev) => prev + 1);
+        setLikeCount(likes.length);
         toast.success("Post liked");
       }
       if (!data.liked) {
         dispatch(likeSuccess(data.liked));
         setLike(false);
-        setLikeCount((prev) => !prev < 0 && prev - 1);
+        setLikeCount(likes.length);
         toast.success("Post unliked!");
       }
       if (!data.success) {
@@ -51,10 +51,11 @@ export default function Like({
     } catch (error) {}
   };
 
-  // useEffect(()=>{
-  //   setLike(likes.map(item => item == user._id));
-  //   setLikeCount(likes.length)
-  // },[])
+  useEffect(()=>{
+    setLike(likes.map(item => item._id == user._id));
+    setLikeCount(likes.length)
+  },[])
+  console.log(likes)
   return (
     <div className="flex items-center gap-x-3">
       <Popover>

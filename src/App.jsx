@@ -56,7 +56,7 @@ function App() {
     <>
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
-      <main className="min-h-[80vh]">
+      <main className="min-h-[80vh] max-w-screen-sm mx-auto">
       <Outlet />      
       </main>
       <Footer />

@@ -51,7 +51,7 @@ function Header() {
     toast.success(res.data.message);
     navigate("/login");
   };
-console.log(user)
+
   return (
    <div className="max-w-screen-sm mx-auto"> <Menubar className="justify-between h-16">
     

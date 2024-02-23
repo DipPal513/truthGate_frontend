@@ -39,7 +39,7 @@ Welcome to the TruthGate frontend documentation! TruthGate is a social media app
 The frontend codebase follows a standard folder structure to maintain organization and modularity.
 
 truthgate-frontend/
-│
+
 ├── src/
 │ ├── components/ # Reusable UI components
 │ ├── pages/ # Individual pages of the application

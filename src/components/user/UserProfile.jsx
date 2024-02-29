@@ -74,7 +74,10 @@ export default function UserProfile() {
     <div className="">
       <Helmet>
         <title>{`user profile page of ${currUser?.name}`}</title>
-        <meta name="description" content="user profile of truthgate social media" />
+        <meta
+          name="description"
+          content="user profile of truthgate social media"
+        />
         <meta name="keywords" content="explore, allusers, truthgate" />
       </Helmet>
       <div className="mt-4 px-4  max-w-screen-sm mx-auto">
@@ -111,27 +114,32 @@ export default function UserProfile() {
           </Popover>
           <AvatarFallback>PROFILE IMAGE</AvatarFallback>
         </Avatar>
-        <div className="flex items-center justify-between">
-          <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
-            {currUser?.username}
-          </h1>
-          {!isMe && (
-            <button
-              className={` bg-blue-600 text-white px-3 py-1 rounded ${
-                isFollowed && " bg-blue-300 px-3"
-              } `}
-            >
-              {isFollowed ? "following" : "follow"}
-            </button>
-          )}
-        </div>
+
+        <h1
+          className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl"
+          style={{ wordWrap: "break-word" }}
+        >
+          {currUser?.username}
+        </h1>
+
+        {!isMe && (
+          <button
+            className={` bg-blue-600 text-white px-3 py-1 mt-4 rounded ${
+              isFollowed && " bg-blue-300 px-3"
+            } `}
+            onClick={() => handleFollow}
+          >
+            {isFollowed ? "following" : "follow"}
+          </button>
+        )}
+
         <div className="bio_section">
-          <p className="mt-3 text-[15px] text-gray-500 font-semibold">
+          <p className="mt-3 text-[15px] text-gray-500 font-semibold dark:text-gray-300">
             {userBio}
           </p>
           {isMe && (
             <Popover>
-              <PopoverTrigger className="underline text-gray-800 capitalize mt-3">
+              <PopoverTrigger className="underline text-gray-800 capitalize mt-3 dark:text-white">
                 add bio
               </PopoverTrigger>
               <PopoverContent>

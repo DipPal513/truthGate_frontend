@@ -25,7 +25,7 @@ import AxiosInstance from "@/lib/AxiosInstance";
 export default function LoginAccount() {
   //
   const navigate = useNavigate();
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "default@gmail.com", password: "default" });
   const dispatch = useDispatch();
   // for form submit
   const { loading } = useSelector((state) => state.user);
@@ -73,6 +73,7 @@ export default function LoginAccount() {
                   id="email"
                   type="email"
                   placeholder="example@gmail.com"
+                  value={data.email}
                   name="email"
                   onChange={(e) =>
                     setData({ ...data, [e.target.name]: e.target.value })
@@ -86,6 +87,7 @@ export default function LoginAccount() {
                   id="password"
                   type="password"
                   placeholder="*******"
+                  value={data.password}
                   required
                   name="password"
                   onChange={(e) =>

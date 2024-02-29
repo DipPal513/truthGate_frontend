@@ -119,6 +119,7 @@ const Post = ({ username = "", post, loadPost = () => {} }) => {
  }
 const navigate = useNavigate();
 const shouldDelete = owner == user?._id;
+console.log(comments)
 
   return (
     <Card className="mt-2 rounded">
@@ -142,7 +143,7 @@ const shouldDelete = owner == user?._id;
         {shouldDelete && 
 <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline"><MdDeleteForever/></Button>
+        <Button variant="outline"><MdDeleteForever style={{fill:"red"}}/></Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -12,12 +12,16 @@ import "./main.css";
 import "@/lib/i18n.js";
 import { routes } from "./routes/routes.jsx";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
+   
     <ThemeProvider>
       <RouterProvider router={routes}>
+        {" "}
         <App />
       </RouterProvider>
     </ThemeProvider>
+    
   </Provider>
 );

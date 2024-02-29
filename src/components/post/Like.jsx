@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import UserWeidge from "../UserWeidge";
 import { useDispatch, useSelector } from "react-redux";
 import AxiosInstance from "@/lib/AxiosInstance";
@@ -11,7 +11,7 @@ import {
   likeRequest,
   likeSuccess,
 } from "@/redux/features/postSlice";
-export default function Like({
+function Like({
   likes,
   follow,
   setFollow,
@@ -19,13 +19,14 @@ export default function Like({
   likeLoading,
   _id
 }) {
+  console.count("like component rendered")
   const { user } = useSelector((state) => state.user);
   const [like, setLike] = useState();
   const [likeCount, setLikeCount] = useState(likes.length);
   // const [loading, setLoading] = useState(likeLoading);
   const dispatch = useDispatch();
 
-  const likeHandler = async () => {
+const likeHandler = async () => {
     dispatch(likeRequest());
     console.log("likehandler triggered")
     try {
@@ -52,10 +53,12 @@ export default function Like({
   };
 
   useEffect(()=>{
-    setLike(likes.map(item => item._id == user._id));
+    const isLiked = likes.some(item => item._id === user._id);
+    console.log(isLiked)
+    setLike(isLiked);  
     setLikeCount(likes.length)
   },[])
-  console.log(likes)
+ 
   return (
     <div className="flex items-center gap-x-3">
       <Popover>
@@ -95,3 +98,4 @@ export default function Like({
     </div>
   );
 }
+export default memo(Like)

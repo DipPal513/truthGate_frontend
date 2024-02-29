@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logoutUser } from "@/redux/features/userSlice";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdHome, MdOutlineExplore } from "react-icons/md";
 
@@ -25,11 +25,11 @@ import { PopoverContent } from "@radix-ui/react-popover";
 import CreatePost from "./post/CreatePost";
 import AxiosInstance from "@/lib/AxiosInstance";
 import { memo } from "react";
-
+import "@/styles/Header.css"
 function Header() {
   console.count("header component rendered");
 
-  // 
+  //
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,68 +53,91 @@ function Header() {
   };
 
   return (
-   <div className="max-w-screen-sm mx-auto"> <Menubar className="justify-between h-16">
-    
-   <MenubarMenu>
-     <Link to={"/"} className=" px-3 py-3 rounded">
-       <MdHome className="text-2xl"/>
-     </Link>
-   </MenubarMenu>
-   <MenubarMenu>
-     {/* <LangToggler /> */}
-     <Popover>
-       <PopoverTrigger>
-         <FaPlus className="text-2xl"/>
-       </PopoverTrigger>
-       <PopoverContent className="bg-white border-gray-800 shadow-lg px-4 py-5 rounded w-full mr-12 dark:bg-gray-900 z-[111111] ">
-         <CreatePost />
-       </PopoverContent>
-     </Popover>
-   </MenubarMenu>
-   <MenubarMenu>
-     <Link to={"/explore"}>
-       <MdOutlineExplore className="text-2xl"/>
-     </Link>
-   </MenubarMenu>
+    <nav className="max-w-screen-sm mx-auto">
+      {" "}
+      <Menubar className="justify-between h-16">
+        <MenubarMenu>
+          <NavLink
+            to={"/"}
+            
+            className="px-3 py-3 rounded"
+          >
+            <MdHome className="text-2xl" />
+          </NavLink>
+        </MenubarMenu>
+        <MenubarMenu>
+          {/* <LangToggler /> */}
+          <Popover>
+            <PopoverTrigger>
+              <FaPlus className="text-2xl" />
+            </PopoverTrigger>
+            <PopoverContent className="bg-white border-gray-800 shadow-lg px-4 py-5 rounded w-full mr-12 dark:bg-gray-900 z-[111111] ">
+              <CreatePost />
+            </PopoverContent>
+          </Popover>
+        </MenubarMenu>
+        <MenubarMenu>
+          <NavLink to={"/explore"} className={"px-3 py-3 rounded"}>
+            <MdOutlineExplore className="text-2xl" />
+          </NavLink>
+        </MenubarMenu>
 
-   {isAuthenticated ? (
-     <MenubarMenu>
-       <MenubarTrigger>
-         {" "}
-         <Avatar>
-           <AvatarImage src={user?.avatar?.url} className="object-contain"/>
-           <AvatarFallback><img src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png" alt="" /></AvatarFallback>
-         </Avatar>
-       </MenubarTrigger>
-       <MenubarContent>
-         <MenubarItem inset className="hover:bg-gray-200 dark:hover:text-gray-900">
-           <Link to={`/user/${user?._id}`} className="flex items-center gap-x-3">
-             <CgProfile className="text-2xl" />
-             <p>view profile</p>
-           </Link>
-         </MenubarItem>
-         <MenubarItem inset className="hover:bg-gray-200 dark:hover:text-gray-900">
-           <Link to={"/settings"} className="flex items-center gap-x-3">
-             <CiSettings className="text-2xl" />
-             <p>Settings</p>
-           </Link>
-         </MenubarItem>
-         <MenubarItem
-           inset
-           onClick={handleLogout}
-           className="flex gap-x-3 hover:bg-gray-200 dark:hover:text-gray-900"
-         >
-           <CiLogout className="text-2xl" />
-           <p>Logout</p>
-         </MenubarItem>
-       </MenubarContent>
-     </MenubarMenu>
-   ) : (
-     <MenubarMenu>
-       <Link to="/login">Login</Link>
-     </MenubarMenu>
-   )}
- </Menubar></div>
+        {isAuthenticated ? (
+          <MenubarMenu>
+            <MenubarTrigger>
+              {" "}
+              <Avatar>
+                <AvatarImage
+                  src={user?.avatar?.url}
+                  className="object-contain"
+                />
+                <AvatarFallback>
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/128/4566/4566915.png"
+                    alt=""
+                  />
+                </AvatarFallback>
+              </Avatar>
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem
+                inset
+                className="hover:bg-gray-200 dark:hover:text-gray-900"
+              >
+                <Link
+                  to={`/user/${user?._id}`}
+                  className="flex items-center gap-x-3"
+                >
+                  <CgProfile className="text-2xl" />
+                  <p>view profile</p>
+                </Link>
+              </MenubarItem>
+              <MenubarItem
+                inset
+                className="hover:bg-gray-200 dark:hover:text-gray-900"
+              >
+                <NavLink to={"/settings"} className="flex items-center gap-x-3">
+                  <CiSettings className="text-2xl" />
+                  <p>Settings</p>
+                </NavLink>
+              </MenubarItem>
+              <MenubarItem
+                inset
+                onClick={handleLogout}
+                className="flex gap-x-3 hover:bg-gray-200 dark:hover:text-gray-900"
+              >
+                <CiLogout className="text-2xl" />
+                <p>Logout</p>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        ) : (
+          <MenubarMenu>
+            <NavLink to="/login">Login</NavLink>
+          </MenubarMenu>
+        )}
+      </Menubar>
+    </nav>
   );
 }
-export default memo(Header)
+export default memo(Header);

@@ -13,6 +13,8 @@ import AxiosInstance from "./lib/AxiosInstance";
 import LoginAccount from "./pages/login";
 import Register from "./pages/Register";
 import Footer from "./components/Footer";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   console.count("app component rendered ")
@@ -54,13 +56,16 @@ function App() {
 
   return (
     <>
+    <ErrorBoundary fallback={<ErrorPage/>}>
       {isAuthenticated && <Header />}
       <Toaster position="top center" />
       <main className="min-h-[80vh] max-w-screen-sm mx-auto">
       <Outlet />      
       </main>
       <Footer />
+      </ErrorBoundary>
     </>
+
   );
 }
 

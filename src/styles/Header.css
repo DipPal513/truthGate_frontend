@@ -1,0 +1,7 @@
+nav .active{
+    background-color: rgb(226, 230, 234);
+}
+
+html.dark nav .active{
+    background-color: rgb(50, 50, 50);
+}

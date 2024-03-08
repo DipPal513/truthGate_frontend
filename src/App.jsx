@@ -43,7 +43,7 @@ function App() {
    user();
   }, []);
 
-  const { isAuthenticated, initialLoading:loading } = useSelector((state) => state.user);
+  const { isAuthenticated, loading:initialLoading } = useSelector((state) => state.user);
  
 
 //   if (loading) {

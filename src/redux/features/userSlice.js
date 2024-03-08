@@ -24,15 +24,15 @@ export const userSlice = createSlice({
             state.isAuthenticated = false;
         },
         loadUserRequest: (state) => {
-            state.loading = true;
+            state.initialLoading = true;
         },
         loadUser: (state, action) => {
             state.user = action.payload;
-            state.loading = false;
+            state.initialLoading = false;
             state.isAuthenticated = true;
         },
         loadUserFailure: (state, action) => {
-            state.loading = false;
+            state.initialLoading = false;
             state.isAuthenticated = false;
         },
 
